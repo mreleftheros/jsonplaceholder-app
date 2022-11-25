@@ -5,7 +5,7 @@ h1 {
   letter-spacing: .1rem;
   line-height: 1.1;
   max-width: 25ch;
-  font-size: clamp(4rem, calc(4rem + 2.5vw), 6.5rem);//Georgia font sans
+  font-size: get-clamp(l);
 }
 
 ul {
@@ -31,11 +31,12 @@ label {
 
 a {
   text-decoration: none;
-  color: unset;
+  color: inherit;
 }
 
 p {
   max-width: 30ch;
+  font-size: get-clamp(s);
 
   @include mq(m) {
     max-width: 60ch;
