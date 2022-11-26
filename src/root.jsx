@@ -29,7 +29,7 @@ export default function Root() {
             <header className="header">
               <Nav />
             </header>
-            <main className="main">
+            <main className="main text-primary-900">
               <Routes>
                 <FileRoutes />
               </Routes>
