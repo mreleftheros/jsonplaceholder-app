@@ -14,17 +14,17 @@ const Hero = () => {
         </p>
         <div class="hero-ctas mt-xxl">
           <A href="/posts">
-            <button class="btn rounded-l bg-primary-700 text-primary-50">
+            <button class="btn rounded-l bg-primary-700 text-primary-50 opaque">
               View Posts
             </button>
           </A>
           <A href="/todos">
-            <button class="btn rounded-l bg-primary-700 text-primary-200">
+            <button class="btn rounded-l bg-primary-700 text-primary-200 opaque-reverse">
               View Todos
             </button>
           </A>
           <A href="/users">
-            <button class="btn rounded-l bg-primary-700 text-primary-200">
+            <button class="btn rounded-l bg-primary-700 text-primary-200 opaque-reverse">
               View Users
             </button>
           </A>

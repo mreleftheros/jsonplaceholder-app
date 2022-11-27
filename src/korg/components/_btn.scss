@@ -7,9 +7,4 @@
   text-transform: uppercase;
   font-size: get-clamp(s);
   font-weight: 400;
-  transition: opacity .3s ease-out;
-
-  &:hover {
-    opacity: .75;
-  }
 }

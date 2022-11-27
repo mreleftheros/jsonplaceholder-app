@@ -1,11 +1,17 @@
 @use "../abstracts/" as *;
 
 .post {
+  display: flex;
+  flex-direction: column;
+  min-height: 10rem;
   margin-inline: auto;
+  width: 100%;
 
-  &-inner {
-    min-height: 10rem;
-    display: flex;
-    flex-direction: column;
+  &:hover {
+    box-shadow: 0 0 .5rem $secondary;
+  }
+  
+  &-author {
+    width: max-content;
   }
 }
