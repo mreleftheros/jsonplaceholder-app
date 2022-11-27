@@ -5,30 +5,34 @@ import {
   useSearchParams
 } from "solid-start";
 import Content from "~/components/layout/Content";
-import Loading from "~/components/Loading";
 import { TITLE } from "~/site";
-import { createSignal } from "solid-js";
+import { createSignal, createEffect } from "solid-js";
 
 export const routeData = ({ location }) => {
   return createRouteData(
     async key => {
-      const urls = [
-        `https://jsonplaceholder.typicode.com/posts?_page=${key[0] || 1}${
-          key[1] ? `&q=${key[1]}` : ""
-        }`,
-        "https://jsonplaceholder.typicode.com/users"
-      ];
-      return await Promise.all(
-        urls.map(u => fetch(u).then(res => res.json()))
-      ).then(values =>
-        values[0].map(p => ({
-          ...p,
-          userUsername: values[1].find(u => u.id === p.userId).username
-        }))
-      );
+      try {
+        const urls = [
+          `https://jsonplaceholder.typicode.com/posts?_page=${key[0] || 1}${
+            key[1] ? `&q=${key[1]}` : ""
+          }`,
+          "https://jsonplaceholder.typicode.com/users"
+        ];
+
+        return await Promise.all(
+          urls.map(u => fetch(u).then(res => res.json()))
+        ).then(values =>
+          values[0].map(p => ({
+            ...p,
+            userUsername: values[1].find(u => u.id === p.userId).username
+          }))
+        );
+      } catch (err) {
+        console.log(err);
+        throw Error("Error fetching data.");
+      }
     },
     {
-      initialValue: [],
       key: () => [location.query.page, location.query.q]
     }
   );
@@ -38,8 +42,19 @@ const Index = () => {
   const posts = useRouteData();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchOpen, setSearchOpen] = createSignal(false);
+  let searchInput;
 
-  const toggleSearch = () => setSearchOpen(prev => !prev);
+  createEffect(() => {
+    if (searchOpen()) {
+      searchInput?.select();
+    } else {
+      searchInput.value = "";
+    }
+  });
+
+  const openSearch = () => setSearchOpen(true);
+
+  const closeSearch = () => setSearchOpen(false);
 
   return (
     <>
@@ -63,17 +78,19 @@ const Index = () => {
             type="text"
             value={searchParams.q || ""}
             onInput={({ target }) => setSearchParams({ q: target.value })}
-            onClick={toggleSearch}
-            onBlur={toggleSearch}
+            onClick={openSearch}
+            onBlur={closeSearch}
+            ref={searchInput}
           />
         </div>
         <div class="bg-primary-300">
+          {JSON.stringify(posts.loading)}
           <Switch
             fallback={<p>Error fetching data...Please refresh your browser</p>}
           >
-            <Match when={posts.loading}>
+            {/* <Match when={posts.loading}>
               <Loading />
-            </Match>
+            </Match> */}
             <Match when={!posts.error}>
               <For each={posts()}>{p => <div>{p.title}</div>}</For>
             </Match>
