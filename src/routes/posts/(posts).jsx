@@ -8,6 +8,7 @@ import Content from "~/components/layout/Content";
 import { TITLE } from "~/site";
 import { createSignal, createEffect } from "solid-js";
 import Post from "~/components/Post";
+import Pagination from "~/components/Pagination";
 
 export const routeData = ({ location }) => {
   return createRouteData(
@@ -44,6 +45,7 @@ const Index = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchOpen, setSearchOpen] = createSignal(false);
   let searchInput;
+  const [page, setPage] = createSignal(+searchParams.page || 1);
 
   createEffect(() => {
     if (searchOpen()) {
@@ -53,9 +55,13 @@ const Index = () => {
     }
   });
 
+  createEffect(() => setSearchParams({ page: page() }));
+
   const openSearch = () => setSearchOpen(true);
 
   const closeSearch = () => setSearchOpen(false);
+
+  const updatePage = val => setPage(prev => prev + val);
 
   return (
     <>
@@ -75,7 +81,7 @@ const Index = () => {
             <path d="M14.56 12.44L11.3 9.18a5.51 5.51 0 10-2.12 2.12l3.26 3.26a1.5 1.5 0 102.12-2.12zM3 6.5A3.5 3.5 0 116.5 10 3.5 3.5 0 013 6.5z"></path>
           </svg>
           <input
-            class="search-input px-xl py-s bg-primary-400 rounded-l"
+            class="search-input px-xl py-s bg-primary-500 rounded-l"
             type="text"
             value={searchParams.q || ""}
             onInput={({ target }) => setSearchParams({ q: target.value })}
@@ -85,6 +91,7 @@ const Index = () => {
           />
         </div>
         <div class="flow">
+          <Pagination page={page()} onPage={updatePage} />
           <Switch
             fallback={<p>Error fetching data...Please refresh your browser</p>}
           >
@@ -92,11 +99,12 @@ const Index = () => {
               <Loading />
             </Match> */}
             <Match when={!posts.error}>
-              <For each={posts()} fallback={<p>No matching results found.</p>}>{p => (
-                <Post {...p} />
-              )}</For>
+              <For each={posts()} fallback={<p>No matching results found.</p>}>
+                {p => <Post {...p} />}
+              </For>
             </Match>
           </Switch>
+          <Pagination page={page()} onPage={updatePage} />
         </div>
       </Content>
     </>
