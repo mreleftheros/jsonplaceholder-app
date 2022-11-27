@@ -6,7 +6,9 @@ const Pagination = props => {
   return (
     <div class="pagination flex-center">
       <button
-        class="pagination-btn btn bg-primary-400 rounded-s opaque"
+        class={`pagination-btn btn bg-primary-400 rounded-s ${
+          merged.page === 1 ? "" : "opaque"
+        }`}
         disabled={merged.page === 1}
         onClick={[merged.onPage, -1]}
       >
@@ -14,7 +16,9 @@ const Pagination = props => {
       </button>
       <p>Page {merged.page}</p>
       <button
-        class="pagination-btn btn bg-primary-400 rounded-s opaque"
+        class={`pagination-btn btn bg-primary-400 rounded-s ${
+          merged.page > merged.end ? "" : "opaque"
+        }`}
         disabled={merged.page > merged.end}
         onClick={[merged.onPage, 1]}
       >

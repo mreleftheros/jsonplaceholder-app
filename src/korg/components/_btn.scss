@@ -7,4 +7,8 @@
   text-transform: uppercase;
   font-size: get-clamp(s);
   font-weight: 400;
+
+  &:disabled {
+    cursor: auto;
+  }
 }
