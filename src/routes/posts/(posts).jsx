@@ -7,6 +7,7 @@ import {
 import Content from "~/components/layout/Content";
 import { TITLE } from "~/site";
 import { createSignal, createEffect } from "solid-js";
+import Post from "~/components/Post";
 
 export const routeData = ({ location }) => {
   return createRouteData(
@@ -83,8 +84,7 @@ const Index = () => {
             ref={searchInput}
           />
         </div>
-        <div class="bg-primary-300">
-          {JSON.stringify(posts.loading)}
+        <div class="flow">
           <Switch
             fallback={<p>Error fetching data...Please refresh your browser</p>}
           >
@@ -92,7 +92,9 @@ const Index = () => {
               <Loading />
             </Match> */}
             <Match when={!posts.error}>
-              <For each={posts()}>{p => <div>{p.title}</div>}</For>
+              <For each={posts()} fallback={<p>No matching results found.</p>}>{p => (
+                <Post {...p} />
+              )}</For>
             </Match>
           </Switch>
         </div>

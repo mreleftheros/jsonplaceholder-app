@@ -1,0 +1,11 @@
+@use "../abstracts/" as *;
+
+.post {
+  margin-inline: auto;
+
+  &-inner {
+    min-height: 10rem;
+    display: flex;
+    flex-direction: column;
+  }
+}
