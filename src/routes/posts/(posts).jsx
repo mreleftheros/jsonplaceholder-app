@@ -15,7 +15,7 @@ export const routeData = ({ location }) => {
     async key => {
       try {
         const urls = [
-          `https://jsonplaceholder.typicode.com/posts?_page=${key[0] || 1}${
+          `https://jsonplaceholder.typicode.com/posts?_embed=comments&_page=${key[0] || 1}${
             key[1] ? `&q=${key[1]}` : ""
           }`,
           "https://jsonplaceholder.typicode.com/users"
