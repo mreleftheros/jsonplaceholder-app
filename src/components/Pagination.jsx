@@ -3,6 +3,8 @@ import { mergeProps } from "solid-js";
 const Pagination = props => {
   const merged = mergeProps({ page: 1, onPage: null, end: 9 }, props);
 
+  console.log(merged);
+
   return (
     <div class="pagination flex-center">
       <button

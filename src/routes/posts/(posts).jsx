@@ -35,13 +35,15 @@ export const routeData = ({ location }) => {
       }
     },
     {
-      key: () => [location.query.page, location.query.q]
+      key: () => [location.query.page, location.query.q],
+      initialValue: []
     }
   );
 };
 
 const Index = () => {
   const posts = useRouteData();
+  const len = () => posts().length;
   const [searchParams, setSearchParams] = useSearchParams();
   const page = () => +searchParams.page || 1;
   const [searchOpen, setSearchOpen] = createSignal(false);
@@ -79,11 +81,14 @@ const Index = () => {
             onClick={openSearch}
           />
           <p class="search-clear" onClick={() => setSearchParams({ q: "" })}>
-            Reset
+            {searchParams.q && "Reset"}
           </p>
         </div>
         <div class="flow">
-          <Pagination page={page()} onPage={updatePage} />
+        {len() && (
+            <Pagination page={page()} onPage={updatePage} end={len() < 10 ? page() : undefined} />
+
+          )}
           <Switch
             fallback={<p>Error fetching data...Please refresh your browser</p>}
           >
@@ -96,7 +101,10 @@ const Index = () => {
               </For>
             </Match>
           </Switch>
-          <Pagination page={page()} onPage={updatePage} />
+          {len() && (
+            <Pagination page={page()} onPage={updatePage} end={len() < 10 ? page() : undefined} />
+
+          )}
         </div>
       </Content>
     </>

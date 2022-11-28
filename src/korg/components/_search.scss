@@ -13,15 +13,10 @@
     z-index: 1;
     cursor: pointer;
     font-size: get-clamp(s);
-    opacity: 0;
-    transition: opacity .3s ease;
     user-select: none;
   }
 
   &.toggle & {
-    &-clear {
-      opacity: 1;
-    }
     
     &-icon {
       visibility: hidden;
