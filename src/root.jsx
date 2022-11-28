@@ -24,7 +24,7 @@ export default function Root() {
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Body>
-        <Suspense>
+        <Suspense fallback={<p>loading...</p>}>
           <ErrorBoundary>
             <header className="header">
               <Nav />
