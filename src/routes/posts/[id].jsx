@@ -31,7 +31,7 @@ const Index = () => {
       <button class="mx-s btn bg-primary-500 opaque rounded-s my-l">
         <A href="/posts">🠐 Back To Posts</A>
       </button>
-      <div class="flow container bg-primary-400 p-s rounded-s">
+      <div class="flow container bg-primary-400 px-s py-xl rounded-s">
         <h1 class="">{post().title}</h1>
         <p>{post().body}</p>
         <button

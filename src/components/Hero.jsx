@@ -18,7 +18,7 @@ const Hero = () => {
               View Posts
             </button>
           </A>
-          <A href="/todos">
+          {/* <A href="/todos">
             <button class="btn rounded-l bg-primary-700 text-primary-200 opaque-reverse">
               View Todos
             </button>
@@ -27,7 +27,7 @@ const Hero = () => {
             <button class="btn rounded-l bg-primary-700 text-primary-200 opaque-reverse">
               View Users
             </button>
-          </A>
+          </A> */}
         </div>
       </div>
     </section>
